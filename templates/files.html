@@ -1,0 +1,121 @@
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Home</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	</head>
+	
+	
+	<body>
+		
+		<!--header-->
+		<nav class="navbar navbar-inverse">
+		  <div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="#"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bicycle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+		  <path fill-rule="evenodd" d="M4 4.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1v.5h4.14l.386-1.158A.5.5 0 0 1 11 4h1a.5.5 0 0 1 0 1h-.64l-.311.935.807 1.29a3 3 0 1 1-.848.53l-.508-.812-2.076 3.322A.5.5 0 0 1 8 10.5H5.959a3 3 0 1 1-1.815-3.274L5 5.856V5h-.5a.5.5 0 0 1-.5-.5zm1.5 2.443l-.508.814c.5.444.85 1.054.967 1.743h1.139L5.5 6.943zM8 9.057L9.598 6.5H6.402L8 9.057zM4.937 9.5a1.997 1.997 0 0 0-.487-.877l-.548.877h1.035zM3.603 8.092A2 2 0 1 0 4.937 10.5H3a.5.5 0 0 1-.424-.765l1.027-1.643zm7.947.53a2 2 0 1 0 .848-.53l1.026 1.643a.5.5 0 1 1-.848.53L11.55 8.623z"/>
+		</svg></a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			  <ul class="nav navbar-nav">
+				<li  class="active"><a href="/home">Home<span class="sr-only">(current)</span></a></li>				
+			  </ul>
+			  <ul class="nav navbar-nav navbar-right">
+				<li><a href="#">Contact Us</a></li>
+			  </ul>
+			</div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+		
+		<div class="container">
+			<h1>
+				Upload Files
+			</h1>
+			<div>
+				{%if cryptopt=="encrypt"%}
+					{%if stegtype=="Image"%}
+						<p>imgen</p>
+						<h3> {{stegtype}} Steganography - Encryption</h3>
+							<form id="encryptimgfiles" style="margin-top:40px;" action="/encryptimgfiles" enctype='multipart/form-data' method="POST">
+								<input type="text" name="stegtype" value="{{stegtype}}" style="display:none;">
+								<input type="text" name="cryptopt" value="{{cryptopt}}" style="display:none;">
+									<label for="opfile">Select image to be output</label>
+									<input id="opfile"type="file" name="opfile" class="form-control" accept="image/png, image/gif, image/jpeg">
+									<label for="hidefile">Select image to be hidden</label>
+									<input id="hidefile"type="file" name="hidefile" class="form-control" accept="image/png, image/gif, image/jpeg">
+								
+								<div class="col-12" style="margin: 7px 0 0 0;">
+					              <button type="submit" class="btn btn-primary">Submit</button>
+					            </div>
+							</form>
+					{% endif %}
+				{% endif %}
+				{%if cryptopt=="encrypt"%}
+					{%if stegtype!="Image"%}
+						<h3> {{stegtype}} Steganography - Encryption</h3>
+						<form id="encryptfiles" style="margin-top:40px;" action="/encryptfiles" enctype='multipart/form-data' method="POST">
+						<input type="text" name="stegtype" value="{{stegtype}}" style="display:none;">
+						{%if stegtype=="Text"%}
+							<label for="opfile">Select image to be output</label>
+							<input id="opfile" type="file" name="opfile" class="form-control" accept="image/png, image/gif, image/jpeg" >
+							<label for="hidefile">Select text to be hidden</label>
+							<input id="hidefile" class="form-control" type="text" name="hidefile">
+						{% endif %}
+						{%if stegtype=="Audio"%}
+							<label for="opfile">Select Audio file to be output</label>
+							<input id="opfile"type="file" name="opfile" class="form-control" accept="audio/mp3,audio/*,audio/wav;capture=microphone">
+							<label for="hidefile">Select text to be hidden</label>
+							<input id="hidefile"type="text" class="form-control" name="hidefile">
+						{% endif %}
+						<div class="col-12" style="margin: 7px 0 0 0;">
+			              <button type="submit" class="btn btn-primary">Submit</button>
+			            </div>
+						</form>
+					{% endif %}
+				{% endif %}
+				{%if cryptopt=="decrypt"%}
+					<h3> {{stegtype}} Steganography - Decryption</h3>
+					<form id="decryptfiles" style="margin-top:40px;" action="/decryptfiles" method="POST" enctype='multipart/form-data'>
+						<input type="text" name="stegtype" value="{{stegtype}}" style="display:none;">
+						{%if stegtype=="Text"%}
+							<label for="opfile">Select image to decrypt</label>
+							<input id="opfile" type="file" class="form-control" name="opfile" accept="image/png, image/gif, image/jpeg" >
+						{% endif %}
+						{%if stegtype=="Image"%}
+							<label for="opfile">Select image to decrypt</label>
+							<input id="opfile"type="file" class="form-control" name="opfile" accept="image/png, image/gif, image/jpeg">
+						{% endif %}
+						{%if stegtype=="Audio"%}
+							<label for="opfile">Select Audio file to decrypt</label>
+							<input id="opfile"type="file" class="form-control" name="opfile" accept="audio/mp3,audio/*,audio/wav;capture=microphone">
+						{% endif %}
+						<div class="col-12" style="margin: 7px 0 0 0;">
+			              <button type="submit" class="btn btn-primary">Submit</button>
+			            </div>
+					</form>
+				{% endif %}
+			</div>
+		</div>
+		 
+		
+		</div>
+		
+		
+	</body>
+</html>
