@@ -77,7 +77,7 @@ def encode_data(img,lastname):
 
          
   
-    cv2.imwrite("textstegofile.png",img)
+    cv2.imwrite("./static/text/textstegofile.png",img)
 
 
 

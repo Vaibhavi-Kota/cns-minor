@@ -1,7 +1,7 @@
 import wave
 def encode(data):
 	print("\nEncoding Starts..")
-	audio = wave.open("sample.wav",mode="rb")
+	audio = wave.open("./static/audio/sample.wav",mode="rb")
 	frame_bytes = bytearray(list(audio.readframes(audio.getnframes())))
 	string = data
 	print(string)
@@ -12,7 +12,7 @@ def encode(data):
 	frame_modified = bytes(frame_bytes)
 	for i in range(0,10):
 		print(frame_bytes[i])
-	newAudio =  wave.open('sampleStego.wav', 'wb')
+	newAudio =  wave.open('./static/audio/sampleStego.wav', 'wb')
 	newAudio.setparams(audio.getparams())
 	newAudio.writeframes(frame_modified)
 
@@ -22,7 +22,7 @@ def encode(data):
 
 def decode():
 	print("\nDecoding Starts..")
-	audio = wave.open("audstegofile.wav", mode='rb')
+	audio = wave.open("./static/audio/audstegofile.wav", mode='rb')
 	frame_bytes = bytearray(list(audio.readframes(audio.getnframes())))
 	extracted = [frame_bytes[i] & 1 for i in range(len(frame_bytes))]
 	string = "".join(chr(int("".join(map(str,extracted[i:i+8])),2)) for i in range(0,len(extracted),8))

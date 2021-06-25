@@ -39,7 +39,7 @@ def merge(image1_path, image2_path):
 
             pixels_new[i, j] = binary_to_integer(rgb)
 
-    new_image.convert('RGB').save('merged.png')
+    new_image.convert('RGB').save('./static/image/merged.png')
     print('\nMerged image saved as "merged.png"\n')
 
     return new_image
@@ -86,7 +86,7 @@ def unmerge(image_path):
     # Crop the image based on the 'valid' pixels
     new_image = new_image.crop((0, 0, original_size[0], original_size[1]))
 
-    new_image.save('unmerged.png')
+    new_image.save('./static/image/unmerged.png')
     print('\nHidden image saved as "unmerged.png"\n')
 
     return new_image
